@@ -26,8 +26,8 @@ const Cart = () => {
       <div></div>
       <div></div>
       <div></div>
-      <div className="text-right">
-        {currency.format(items.reduce((a, v) => a + v.quantity * v.price, 0))}
+      <div id="grand_total" className="text-right">
+        Total: {currency.format(items.reduce((a, v) => a + v.quantity * v.price, 0))}
       </div>
       {!!items.length && (
         <div className="flex mb-10">
