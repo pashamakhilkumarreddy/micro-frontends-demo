@@ -1,0 +1,36 @@
+Static files are served out of the public directory.
+
+```
+$ curl http://localhost:9000/placeholder.txt
+$ # result -> Put your static files in this directory and then delete this file.
+```
+
+You can have un-authorized routes.
+
+```
+$ curl http://localhost:9000/products
+$ # result -> true
+```
+
+Trying authorized routes without a JWT will result in a 401.
+
+```
+$ curl http://localhost:9000/cart
+$ # result -> {"statusCode":401,"message":"Unauthorized"}                                 
+```
+
+Use the `/auth/login` route to login.
+
+```
+$ # POST /auth/login
+$ curl -X POST http://localhost:9000/auth/login -d '{"username": "stacy", "password": "kkmUhEb3fTg"}' -H "Content-Type: application/json"
+$ # result -> {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vybm... }
+```
+
+Send the JWT to authorized routes using the `Authorization` header and prefixing the JWT with `Bearer `.
+
+```
+$ # GET /profile using access_token returned from previous step as bearer code
+$ curl http://localhost:9000/cart -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2Vybm..."
+$ # result -> {"userId":2}
+```
